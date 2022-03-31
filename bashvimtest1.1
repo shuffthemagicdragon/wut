@@ -1,0 +1,13 @@
+#!/bin/bash
+for ip in $(cat ip-test1.txt | sort | uniq); do
+	echo who owns? $ip
+	x=$(whois $ip | grep OrgName | wc -l)
+	if [ $x -eq 0 ]
+	then
+		echo unknown
+	elif
+		[ $x -ne 0 ]
+	then
+		echo $(whois $ip | grep OrgName | awk '{print $2,$3}')
+	fi
+done
